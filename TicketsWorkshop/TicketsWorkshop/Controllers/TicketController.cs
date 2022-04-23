@@ -38,7 +38,7 @@ namespace TicketsWorkshop.Controllers
 
             Ticket ticket = await _context.Tickets
                 .FirstOrDefaultAsync(t => t.Id == id);
-            if (id < 0 || id > 5001)
+            if (id < 0 || id > 5000)
             {
                 TempData["Message"] = "Error de boleta, no existe";
 

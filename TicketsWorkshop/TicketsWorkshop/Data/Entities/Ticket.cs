@@ -6,7 +6,7 @@ namespace TicketsWorkshop.Data.Entities
     {
         public int Id { get; set; }
 
-        [Display(Name = "Estado del ticket")]
+        [Display(Name = "Estado del boleto")]
         public bool? WasUsed { get; set; }
 
         [Display(Name = "Nombre")]

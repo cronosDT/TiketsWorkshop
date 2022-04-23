@@ -4,7 +4,7 @@ namespace TicketsWorkshop.Models
 {
     public class EditTicketViewModel
     {
-        [Display(Name = "Numero ticket")]
+        [Display(Name = "Numero de Boleto")]
         public int Id { get; set; }
 
         [Display(Name = "Nombre")]
@@ -21,7 +21,7 @@ namespace TicketsWorkshop.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public DateTime DateTime { get; set; }
 
-        [Display(Name = "Estado del ticket")]
+        [Display(Name = "Estado del boleto")]
         public bool WasUsed { get; set; }
     }
 }
