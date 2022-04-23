@@ -12,11 +12,13 @@ namespace TicketsWorkshop.Data
 
         public DbSet<Entrance> Entrances { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketEntrance> TicketEntrances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Entrance>().HasIndex(c => c.Id).IsUnique();
+            modelBuilder.Entity<TicketEntrance>().HasIndex("TicketId", "EntranceId").IsUnique();
         }
     }
 
