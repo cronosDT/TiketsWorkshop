@@ -2,31 +2,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-@if(TempData["Message"] != null)
-{
-<span class="text-danger"> @Html.Encode(TempData["Message"])</span>
-}
-<hr />  
-@if(TempData["Name"] != null)
-{
-<span class="text-danger"> @Html.Encode(TempData["Name"])</span>
-}
-<br />  
-@if(TempData["Document"] != null)
-{
-<span class="text-danger"> @Html.Encode(TempData["Document"])</span>
-}
-<br />  
-@if(TempData["Date"] != null)
-{
-<span class="text-danger"> @Html.Encode(TempData["Date"])</span>
-}
-<span asp-validation-for="Id" class="text-danger"></span>
-
 <div class="row">
     <div class="col-md-4 offset-4">
-        <h3>Iniciar Sesión</h3>
+        <h3>Validar tickete</h3>
         <form asp-action="CheckTicket">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
@@ -44,6 +22,7 @@
         </form>
     </div>
 </div>
+<span asp-validation-for="Id" class="text-danger"></span>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

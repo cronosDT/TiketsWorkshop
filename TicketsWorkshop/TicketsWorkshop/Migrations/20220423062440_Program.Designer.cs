@@ -12,8 +12,8 @@ using TicketsWorkshop.Data;
 namespace TicketsWorkshop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220423050332_AllProgram")]
-    partial class AllProgram
+    [Migration("20220423062440_Program")]
+    partial class Program
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

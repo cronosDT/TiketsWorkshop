@@ -4,6 +4,7 @@ namespace TicketsWorkshop.Models
 {
     public class EditTicketViewModel
     {
+        [Display(Name = "Numero ticket")]
         public int Id { get; set; }
 
         [Display(Name = "Nombre")]

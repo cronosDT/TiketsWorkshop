@@ -35,6 +35,18 @@ namespace TicketsWorkshop.Data
                     });
                 }
 
+                _context.Tickets.Add(new Ticket
+                {
+
+                    WasUsed = true,
+                    Document = "1234",
+                    Name = "Danny",
+                    Entrance = null,
+                    DateTime = DateTime.Now,
+
+                });
+
+
             }
 
             await _context.SaveChangesAsync();

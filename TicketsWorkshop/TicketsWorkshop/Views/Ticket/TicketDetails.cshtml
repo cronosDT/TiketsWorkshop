@@ -1,0 +1,54 @@
+﻿@model TicketsWorkshop.Data.Entities.Ticket
+@{
+    ViewData["Title"] = "TicketDetails";
+}
+<h1 style="color:red;">El ticket ya ha sido utilizado</h1>
+<h3>Detalles</h3>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Id)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Id)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Document)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Document)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.DateTime)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.DateTime)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.WasUsed)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.WasUsed)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Entrance)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Entrance)
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Index" asp-route-id="@Model?.Id" class="btn btn-outline-secondary">Regresar</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

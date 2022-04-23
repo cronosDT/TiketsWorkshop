@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketsWorkshop.Migrations
 {
-    public partial class AllProgram : Migration
+    public partial class Program : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
