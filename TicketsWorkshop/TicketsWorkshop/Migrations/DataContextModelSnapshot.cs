@@ -102,7 +102,7 @@ namespace TicketsWorkshop.Migrations
             modelBuilder.Entity("TicketsWorkshop.Data.Entities.Ticket", b =>
                 {
                     b.HasOne("TicketsWorkshop.Data.Entities.Entrance", "Entrance")
-                        .WithMany("Tickets")
+                        .WithMany()
                         .HasForeignKey("EntranceId");
 
                     b.Navigation("Entrance");
@@ -117,7 +117,7 @@ namespace TicketsWorkshop.Migrations
                         .IsRequired();
 
                     b.HasOne("TicketsWorkshop.Data.Entities.Ticket", "Ticket")
-                        .WithMany()
+                        .WithMany("TicketEntrances")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -130,8 +130,11 @@ namespace TicketsWorkshop.Migrations
             modelBuilder.Entity("TicketsWorkshop.Data.Entities.Entrance", b =>
                 {
                     b.Navigation("TicketEntrances");
+                });
 
-                    b.Navigation("Tickets");
+            modelBuilder.Entity("TicketsWorkshop.Data.Entities.Ticket", b =>
+                {
+                    b.Navigation("TicketEntrances");
                 });
 #pragma warning restore 612, 618
         }

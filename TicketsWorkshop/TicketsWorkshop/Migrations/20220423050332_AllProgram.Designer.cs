@@ -12,8 +12,8 @@ using TicketsWorkshop.Data;
 namespace TicketsWorkshop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220422150710_InitialDb")]
-    partial class InitialDb
+    [Migration("20220423050332_AllProgram")]
+    partial class AllProgram
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,23 +53,21 @@ namespace TicketsWorkshop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime?>("DateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Document")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("EntranceId")
+                    b.Property<int?>("EntranceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("WasUsed")
+                    b.Property<bool?>("WasUsed")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -79,20 +77,66 @@ namespace TicketsWorkshop.Migrations
                     b.ToTable("Tickets");
                 });
 
+            modelBuilder.Entity("TicketsWorkshop.Data.Entities.TicketEntrance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EntranceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntranceId");
+
+                    b.HasIndex("TicketId", "EntranceId")
+                        .IsUnique();
+
+                    b.ToTable("TicketEntrances");
+                });
+
             modelBuilder.Entity("TicketsWorkshop.Data.Entities.Ticket", b =>
                 {
                     b.HasOne("TicketsWorkshop.Data.Entities.Entrance", "Entrance")
-                        .WithMany("Tickets")
-                        .HasForeignKey("EntranceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("EntranceId");
 
                     b.Navigation("Entrance");
                 });
 
+            modelBuilder.Entity("TicketsWorkshop.Data.Entities.TicketEntrance", b =>
+                {
+                    b.HasOne("TicketsWorkshop.Data.Entities.Entrance", "Entrance")
+                        .WithMany("TicketEntrances")
+                        .HasForeignKey("EntranceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketsWorkshop.Data.Entities.Ticket", "Ticket")
+                        .WithMany("TicketEntrances")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Entrance");
+
+                    b.Navigation("Ticket");
+                });
+
             modelBuilder.Entity("TicketsWorkshop.Data.Entities.Entrance", b =>
                 {
-                    b.Navigation("Tickets");
+                    b.Navigation("TicketEntrances");
+                });
+
+            modelBuilder.Entity("TicketsWorkshop.Data.Entities.Ticket", b =>
+                {
+                    b.Navigation("TicketEntrances");
                 });
 #pragma warning restore 612, 618
         }

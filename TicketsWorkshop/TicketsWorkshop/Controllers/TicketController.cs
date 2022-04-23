@@ -12,15 +12,14 @@ namespace TicketsWorkshop.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly DataContext _context;
 
+        public TicketController(DataContext context, ICombosHelper combosHelper)
+        {
+            _context = context;
+            _combosHelper = combosHelper;
+        }
         public async Task<IActionResult> Index()
         {
             return View(await _context.Tickets.ToListAsync());
-        }
-
-        public TicketController(DataContext _context, ICombosHelper combosHelper)
-        {
-            _combosHelper = combosHelper;
-            _context = _context;
         }
 
         public IActionResult CheckTicket()
@@ -35,22 +34,31 @@ namespace TicketsWorkshop.Controllers
             if (id == null)
             {
                 return NotFound();
-
             }
 
             Ticket ticket = await _context.Tickets
                 .FirstOrDefaultAsync(t => t.Id == id);
-            if (id < 0 &&  id > 5000)
+            if (id < 0 || id > 5003)
             {
+                TempData["Message"] = "Error de boleta, no existe";
 
-                ModelState.AddModelError(string.Empty, "Ticket no existe.");
+                return RedirectToAction(nameof(CheckTicket));
+
             }
             if (ticket.WasUsed != false)
             {
-                ModelState.AddModelError(string.Empty, "Ticket ya es usado.");
-                return RedirectToAction(nameof(Index), new { Id = ticket.Id });
+                TempData["Message"] = "Ticket ya es usado.";
+                TempData["Name"] = ticket.Name;
+                TempData["Document"] = ticket.Document;
+                TempData["Date"] = ticket.DateTime;
+                //TODO : time and entrance
+                return RedirectToAction(nameof(CheckTicket), new { Id = ticket.Id });
             }
-            return RedirectToAction(nameof(Index), new { Id = ticket.Id });
+            else
+            {
+                TempData["Message"] = "Ticket no ha sido usada.";
+                return RedirectToAction(nameof(EditTicket), new { Id = ticket.Id });
+            }
         }
 
 
