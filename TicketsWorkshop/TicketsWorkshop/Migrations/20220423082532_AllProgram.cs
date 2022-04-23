@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketsWorkshop.Migrations
 {
-    public partial class Program : Migration
+    public partial class AllProgram : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,32 +44,6 @@ namespace TicketsWorkshop.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "TicketEntrances",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TicketId = table.Column<int>(type: "int", nullable: false),
-                    EntranceId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TicketEntrances", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TicketEntrances_Entrances_EntranceId",
-                        column: x => x.EntranceId,
-                        principalTable: "Entrances",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TicketEntrances_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Entrances_Id",
                 table: "Entrances",
@@ -77,27 +51,20 @@ namespace TicketsWorkshop.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketEntrances_EntranceId",
-                table: "TicketEntrances",
-                column: "EntranceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TicketEntrances_TicketId_EntranceId",
-                table: "TicketEntrances",
-                columns: new[] { "TicketId", "EntranceId" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_EntranceId",
                 table: "Tickets",
                 column: "EntranceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_Id_EntranceId",
+                table: "Tickets",
+                columns: new[] { "Id", "EntranceId" },
+                unique: true,
+                filter: "[EntranceId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "TicketEntrances");
-
             migrationBuilder.DropTable(
                 name: "Tickets");
 

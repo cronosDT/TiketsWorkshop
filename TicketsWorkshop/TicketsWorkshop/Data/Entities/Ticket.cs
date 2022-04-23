@@ -23,9 +23,5 @@ namespace TicketsWorkshop.Data.Entities
         [Display(Name = "Fecha y hora")]
         public DateTime? DateTime { get; set; }
 
-        public ICollection<TicketEntrance> TicketEntrances { get; set; }
-
-        [Display(Name = "Entradas")]
-        public int EntrancesNumber => TicketEntrances == null ? 0 : TicketEntrances.Count;
     }
 }

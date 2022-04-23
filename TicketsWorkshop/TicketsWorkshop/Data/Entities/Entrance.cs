@@ -12,8 +12,7 @@ namespace TicketsWorkshop.Data.Entities
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string Description { get; set; }
 
-        public ICollection<TicketEntrance> TicketEntrances { get; set; }
-
+        public ICollection<Ticket> Tickets { get; set; }
 
     }
 }

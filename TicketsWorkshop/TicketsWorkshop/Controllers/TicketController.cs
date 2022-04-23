@@ -63,7 +63,9 @@ namespace TicketsWorkshop.Controllers
                 return NotFound();
             }
 
-            Ticket ticket = await _context.Tickets.FindAsync(id);
+            Ticket ticket = await _context.Tickets
+                .Include(c => c.Entrance)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
                 return NotFound();
@@ -117,46 +119,23 @@ namespace TicketsWorkshop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTicket(int id, TicketViewModel model)
         {
-            if (id != model.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
 
-                Ticket ticket = await _context.Tickets.FindAsync(model.Id);
-                ticket.Document = model.Document;
-                ticket.Name = model.Name;
-                ticket.DateTime = model.DateTime;
-                ticket.WasUsed = model.WasUsed;
-
-
-                ticket.TicketEntrances = new List<TicketEntrance>()
-                {
-                    new TicketEntrance
-                    {
-                        Entrance = await _context.Entrances.FindAsync(model.EntranceId)
-                    }
-                };
-
                 try
                 {
-                    _context.Add(ticket);
+                    Ticket ticket = await _context.Tickets.FindAsync(model.Id);
+                    ticket.Document = model.Document;
+                    ticket.Name = model.Name;
+                    ticket.DateTime = model.DateTime;
+                    ticket.WasUsed = true;
+                    ticket.Entrance = await _context.Entrances.FindAsync(model.EntranceId);
+                    _context.Update(ticket);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(CheckTicket));
                 }
-                catch (DbUpdateException dbUpdateException)
-                {
-                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
-                    {
-                        ModelState.AddModelError(string.Empty, "Ya existe un ticket con el mismo id.");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
-                    }
-                }
+   
                 catch (Exception exception)
                 {
                     ModelState.AddModelError(string.Empty, exception.Message);

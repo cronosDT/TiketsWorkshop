@@ -49,7 +49,7 @@ namespace TicketsWorkshop.Helpers
                 .OrderBy(c => c.Text)
                 .ToList();
 
-            list.Insert(0, new SelectListItem { Text = "[Seleccione una categoría...", Value = "0" });
+            list.Insert(0, new SelectListItem { Text = "[Seleccione una entrada...", Value = "0" });
             return list;
         }
     }

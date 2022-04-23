@@ -72,69 +72,25 @@ namespace TicketsWorkshop.Migrations
 
                     b.HasIndex("EntranceId");
 
+                    b.HasIndex("Id", "EntranceId")
+                        .IsUnique()
+                        .HasFilter("[EntranceId] IS NOT NULL");
+
                     b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("TicketsWorkshop.Data.Entities.TicketEntrance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("EntranceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntranceId");
-
-                    b.HasIndex("TicketId", "EntranceId")
-                        .IsUnique();
-
-                    b.ToTable("TicketEntrances");
                 });
 
             modelBuilder.Entity("TicketsWorkshop.Data.Entities.Ticket", b =>
                 {
                     b.HasOne("TicketsWorkshop.Data.Entities.Entrance", "Entrance")
-                        .WithMany()
+                        .WithMany("Tickets")
                         .HasForeignKey("EntranceId");
 
                     b.Navigation("Entrance");
                 });
 
-            modelBuilder.Entity("TicketsWorkshop.Data.Entities.TicketEntrance", b =>
-                {
-                    b.HasOne("TicketsWorkshop.Data.Entities.Entrance", "Entrance")
-                        .WithMany("TicketEntrances")
-                        .HasForeignKey("EntranceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TicketsWorkshop.Data.Entities.Ticket", "Ticket")
-                        .WithMany("TicketEntrances")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Entrance");
-
-                    b.Navigation("Ticket");
-                });
-
             modelBuilder.Entity("TicketsWorkshop.Data.Entities.Entrance", b =>
                 {
-                    b.Navigation("TicketEntrances");
-                });
-
-            modelBuilder.Entity("TicketsWorkshop.Data.Entities.Ticket", b =>
-                {
-                    b.Navigation("TicketEntrances");
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
