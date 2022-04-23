@@ -2,51 +2,54 @@
 @{
     ViewData["Title"] = "TicketDetails";
 }
-<h1 style="color:red;">El ticket ya ha sido utilizado</h1>
-<h3>Detalles</h3>
 
-<dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Id)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Id)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Name)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Document)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Document)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.DateTime)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.DateTime)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.WasUsed)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.WasUsed)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Entrance.Description)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Entrance.Description)
-    </dd>
+
+<dl class="row shadow border border-success border-1 shadow-lg p-3 mb-5  rounded">   
+        <h1 style="color:red;">El boleto ya ha sido utilizado</h1>
+        <h3>Detalles</h3>
+        <hr />
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Document)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Document)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WasUsed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WasUsed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Entrance.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Entrance.Description)
+        </dd>
+        
+        <div class="mt-3">
+            <a asp-action="CheckTicket" asp-route-id="@Model?.Id" class="btn btn-outline-secondary">Regresar</a>
+        </div>
 </dl>
 
-<div>
-    <a asp-action="CheckTicket" asp-route-id="@Model?.Id" class="btn btn-outline-secondary">Regresar</a>
-</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -2,9 +2,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class="row">
-    <div class="col-md-4 offset-4">
-        <h3>Validar tickete</h3>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 shadow border border-success border-1 shadow-lg p-3 mb-5  rounded">
+        <h3>Validar boleto</h3>
         <form asp-action="CheckTicket">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
@@ -14,9 +14,8 @@
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>        
             
-            
-            <div class="form-group mt-2">
-                <input type="submit" value="Validar" class="btn btn-outline-primary" />
+            <div class="form-group mt-2 mb-2">
+                <input type="submit" value="Validar" class="btn btn-outline-success" />
                 <a asp-action="Index" class="btn btn-outline-secondary">Regresar</a>
             </div>
         </form>
